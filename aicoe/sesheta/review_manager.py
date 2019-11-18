@@ -225,7 +225,7 @@ async def on_pull_request_review_requested(*, action, number, pull_request, requ
 
 @process_event_actions("issues", {"opened", "reopened"})
 @process_webhook_payload
-async def on_issue_opened(*, action, issue, changes, repository, sender, **kwargs):
+async def on_issue_opened(*, action, issue, repository, sender, **kwargs):
     """Take actions if an issue got opened."""
     _LOGGER.info(f"working on Issue {issue['html_url']}: opened")
 
@@ -243,7 +243,7 @@ async def on_issue_opened(*, action, issue, changes, repository, sender, **kwarg
 
     notify_channel(
         "plain",
-        f"{realname(issue['user']['login'])} just opened an issue: *{issue['title']}*... 🚨",
+        f"🛎 {realname(issue['user']['login'])} just opened an issue... 🚨 {issue['html_url']}",
         f"issue_{repository['name']}_{issue['id']}",
         issue["html_url"],
     )
